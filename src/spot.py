@@ -64,7 +64,22 @@ class Spot:
         pg.draw.rect(win, self.colour, (self.x, self.y, self.width, self.width))
 
     def update_neighbours(self, grid):
-        pass
+        self.neighbours = []
+        ## Methodology ---
+        ## check we arent on the the edge of the grid and check spot in given direction is not a barrier
+        ## if so add spot in given direction into list of neighbours
+
+        if self.row < self.total_rows - 1 and not grid[self.row + 1][self.col].is_barrier(): ## Spot Below
+            self.neighbours.append(grid[self.row + 1][self.col])
+
+        if self.row > 0 and not grid[self.row - 1][self.col].is_barrier(): ## Spot Above
+            self.neighbours.append(grid[self.row - 1][self.col])
+
+        if self.col < self.total_rows - 1 and not grid[self.row][self.col + 1].is_barrier(): ## Spot to Right
+            self.neighbours.append(grid[self.row][self.col + 1])
+
+        if self.col > 0 and not grid[self.row][self.col - 1].is_barrier(): ## Spot to Left
+            self.neighbours.append(grid[self.row][self.col - 1])
 
     ## less than, for comparing spot objects
     def __lt__(self, other):
